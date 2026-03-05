@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+.next/
+dist/
+
+# Database
+backend/data/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+out/
+build/
