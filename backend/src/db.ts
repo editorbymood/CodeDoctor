@@ -3,27 +3,26 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DB_PATH = path.join(__dirname, '..', 'data', 'codedoctor.db');
 
 let db: Database.Database;
 
 export function getDatabase(): Database.Database {
-    if (!db) {
-        const dir = path.dirname(DB_PATH);
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, { recursive: true });
-        }
-        db = new Database(DB_PATH);
-        db.pragma('journal_mode = WAL');
+  if (!db) {
+    const dir = path.dirname(DB_PATH);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
     }
-    return db;
+    db = new Database(DB_PATH);
+    db.pragma('journal_mode = WAL');
+  }
+  return db;
 }
 
 export function initDatabase(): void {
-    const database = getDatabase();
+  const database = getDatabase();
 
-    database.exec(`
+  database.exec(`
     CREATE TABLE IF NOT EXISTS reviews (
       id TEXT PRIMARY KEY,
       code TEXT NOT NULL,

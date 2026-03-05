@@ -81,7 +81,7 @@ reviewRouter.get('/:id/stream', (req: Request, res: Response) => {
     }
 
     // Subscribe to live events
-    const unsubscribe = subscribeToReview(id, (event: PipelineEvent) => {
+    const unsubscribe = subscribeToReview(id as string, (event: PipelineEvent) => {
         res.write(`data: ${JSON.stringify(event)}\n\n`);
 
         if (event.stage === 'complete' || event.stage === 'error') {
