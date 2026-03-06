@@ -23,8 +23,8 @@ interface PipelineEvent { stage: string; progress: number; message: string; data
 interface Issue { id: string; severity: 'critical' | 'high' | 'medium' | 'low'; category: string; title: string; description: string; line_start: number; line_end: number; suggestion: string; cve_reference: string | null; }
 
 const SEVERITY_ORDER: Record<string, number> = { critical: 0, high: 1, medium: 2, low: 3 };
-const SEVERITY_COLORS: Record<string, string> = { critical: '#ef4444', high: '#f97316', medium: '#eab308', low: '#38bdf8' };
-const SEVERITY_BG: Record<string, string> = { critical: 'rgba(239, 68, 68, 0.1)', high: 'rgba(249, 115, 22, 0.1)', medium: 'rgba(234, 179, 8, 0.1)', low: 'rgba(56, 189, 248, 0.1)' };
+const SEVERITY_COLORS: Record<string, string> = { critical: '#e11d48', high: '#f97316', medium: '#eab308', low: '#ea580c' };
+const SEVERITY_BG: Record<string, string> = { critical: 'rgba(225, 29, 72, 0.1)', high: 'rgba(249, 115, 22, 0.1)', medium: 'rgba(234, 179, 8, 0.1)', low: 'rgba(234, 88, 12, 0.1)' };
 
 const STAGE_ICONS: Record<string, React.ReactNode> = {
     analyzing: <SearchIcon />, critiquing: <TargetIcon />, refactoring: <WrenchIcon />, complete: <CheckShield />, error: <AlertTriangle />
@@ -67,9 +67,9 @@ export default function ReviewResultPage({ params }: { params: Promise<{ id: str
     };
 
     const getScoreColor = (score: number) => {
-        if (score >= 90) return '#10b981';
-        if (score >= 70) return '#eab308';
-        return '#ef4444';
+        if (score >= 90) return 'var(--accent-emerald)';
+        if (score >= 70) return 'var(--accent-amber)';
+        return 'var(--accent-violet)';
     };
 
     return (
@@ -86,7 +86,7 @@ export default function ReviewResultPage({ params }: { params: Promise<{ id: str
                                 {isStreaming ? (
                                     <><div className={styles.liveDot}></div> <span>STREAMING ACTIVE [TX: {id.split('-')[0]}]</span></>
                                 ) : (
-                                    <><CheckShield /> <span style={{ color: '#10b981' }}>TELEMETRY COMPLETE</span></>
+                                    <><CheckShield /> <span style={{ color: 'var(--accent-emerald)' }}>TELEMETRY COMPLETE</span></>
                                 )}
                             </div>
                             <h1 className={styles.title}>Scan Report</h1>

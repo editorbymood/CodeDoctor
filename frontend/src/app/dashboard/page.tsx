@@ -113,30 +113,30 @@ export default function DashboardPage() {
 
                                 <div className={styles.telemetryCard}>
                                     <div className={styles.tCardHeader}>
-                                        <ShieldCheckIcon /> <span style={{ color: '#10b981' }}>Clearance Rate</span>
+                                        <ShieldCheckIcon /> <span style={{ color: 'var(--accent-amber)' }}>Clearance Rate</span>
                                     </div>
                                     <div className={styles.tCardValue}>
                                         {stats?.overview.total_reviews ? Math.round((stats.overview.completed_reviews / stats.overview.total_reviews) * 100) : 0}%
                                     </div>
-                                    <div className={styles.tCardSparkline} style={{ background: 'linear-gradient(90deg, transparent, #10b981, transparent)' }}></div>
+                                    <div className={styles.tCardSparkline} style={{ background: 'linear-gradient(90deg, transparent, var(--accent-amber), transparent)' }}></div>
                                 </div>
 
                                 <div className={styles.telemetryCard}>
                                     <div className={styles.tCardHeader}>
-                                        <ActivityPulse /> <span style={{ color: '#c084fc' }}>Avg Quality</span>
+                                        <ActivityPulse /> <span style={{ color: 'var(--accent-cyan)' }}>Avg Quality</span>
                                     </div>
                                     <div className={styles.tCardValue}>
                                         {stats?.overview.avg_quality_score || 0}<span className={styles.tCardSuffix}>/100</span>
                                     </div>
-                                    <div className={styles.tCardSparkline} style={{ background: 'linear-gradient(90deg, transparent, #c084fc, transparent)' }}></div>
+                                    <div className={styles.tCardSparkline} style={{ background: 'linear-gradient(90deg, transparent, var(--accent-cyan), transparent)' }}></div>
                                 </div>
 
                                 <div className={styles.telemetryCard}>
                                     <div className={styles.tCardHeader}>
-                                        <TerminalErrorIcon /> <span style={{ color: '#ef4444' }}>Vulnerabilities</span>
+                                        <TerminalErrorIcon /> <span style={{ color: 'var(--accent-violet)' }}>Vulnerabilities</span>
                                     </div>
                                     <div className={styles.tCardValue}>{totalIssues}</div>
-                                    <div className={styles.tCardSparkline} style={{ background: 'linear-gradient(90deg, transparent, #ef4444, transparent)' }}></div>
+                                    <div className={styles.tCardSparkline} style={{ background: 'linear-gradient(90deg, transparent, var(--accent-violet), transparent)' }}></div>
                                 </div>
                             </div>
 
@@ -156,8 +156,8 @@ export default function DashboardPage() {
                                             <svg viewBox="0 0 100 100" preserveAspectRatio="none" className={styles.svgChart}>
                                                 <defs>
                                                     <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-                                                        <stop offset="0%" stopColor="rgba(56, 189, 248, 0.4)" />
-                                                        <stop offset="100%" stopColor="rgba(56, 189, 248, 0)" />
+                                                        <stop offset="0%" stopColor="var(--accent-cyan-glow)" />
+                                                        <stop offset="100%" stopColor="transparent" />
                                                     </linearGradient>
                                                     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
                                                         <feGaussianBlur stdDeviation="2" result="blur" />
@@ -173,7 +173,7 @@ export default function DashboardPage() {
                                                 {/* Area Fill */}
                                                 <polygon points={`0,100 ${chartPoints} 100,100`} fill="url(#areaGradient)" />
                                                 {/* Line */}
-                                                <polyline points={chartPoints} fill="none" stroke="#38bdf8" strokeWidth="1.5" filter="url(#glow)" />
+                                                <polyline points={chartPoints} fill="none" stroke="var(--accent-cyan)" strokeWidth="1.5" filter="url(#glow)" />
                                             </svg>
                                             {/* X-Axis labels */}
                                             <div className={styles.chartLabels}>

@@ -2,26 +2,26 @@
 
 :root {
   /* Color System */
-  --bg-primary: #090503;
-  --bg-secondary: #140b07;
-  --bg-tertiary: #1f110b;
-  --bg-card: rgba(20, 11, 7, 0.7);
-  --bg-card-hover: rgba(31, 17, 11, 0.9);
-  --bg-glass: rgba(20, 11, 7, 0.6);
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #111827;
+  --bg-tertiary: #1a2235;
+  --bg-card: rgba(17, 24, 39, 0.7);
+  --bg-card-hover: rgba(26, 34, 53, 0.9);
+  --bg-glass: rgba(17, 24, 39, 0.6);
 
-  --text-primary: #fffbeb;
-  --text-secondary: #fcd34d;
-  --text-tertiary: #d97706;
-  --text-muted: #78350f;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+  --text-muted: #475569;
 
-  --accent-cyan: #ea580c; /* Repurposed to orange */
+  --accent-cyan: #ea580c;
   --accent-cyan-glow: rgba(234, 88, 12, 0.3);
-  --accent-emerald: #f59e0b; /* Repurposed to amber */
-  --accent-emerald-glow: rgba(245, 158, 11, 0.3);
-  --accent-violet: #e11d48; /* Repurposed to crimson */
-  --accent-violet-glow: rgba(225, 29, 72, 0.3);
-  --accent-amber: #fbbf24;
-  --accent-amber-glow: rgba(251, 191, 36, 0.3);
+  --accent-emerald: #f59e0b;
+  --accent-emerald-glow: rgba(16, 185, 129, 0.3);
+  --accent-violet: #8b5cf6;
+  --accent-violet-glow: rgba(139, 92, 246, 0.3);
+  --accent-amber: #f59e0b;
+  --accent-amber-glow: rgba(245, 158, 11, 0.3);
 
   --severity-critical: #ef4444;
   --severity-critical-bg: rgba(239, 68, 68, 0.15);
@@ -32,7 +32,7 @@
   --severity-low: #3b82f6;
   --severity-low-bg: rgba(59, 130, 246, 0.15);
 
-  --border-color: rgba(251, 191, 36, 0.1);
+  --border-color: rgba(148, 163, 184, 0.1);
   --border-glow: rgba(234, 88, 12, 0.3);
 
   /* Typography */
@@ -50,8 +50,8 @@
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
   --shadow-glow-cyan: 0 0 20px rgba(234, 88, 12, 0.15);
-  --shadow-glow-emerald: 0 0 20px rgba(245, 158, 11, 0.15);
-  --shadow-glow-violet: 0 0 20px rgba(225, 29, 72, 0.15);
+  --shadow-glow-emerald: 0 0 20px rgba(16, 185, 129, 0.15);
+  --shadow-glow-violet: 0 0 20px rgba(139, 92, 246, 0.15);
 }
 
 * {
@@ -62,16 +62,19 @@
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--bg-primary);
+  background-color: transparent;
   color: var(--text-primary);
   line-height: 1.6;
+  letter-spacing: -0.015em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 a {
@@ -123,14 +126,14 @@ code, pre {
 
 .btn-primary {
   background: linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald));
-  color: #000;
+  color: var(--bg-primary);
   box-shadow: 0 4px 15px rgba(234, 88, 12, 0.3);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 25px rgba(234, 88, 12, 0.5);
-  color: #000;
+  color: var(--bg-primary);
 }
 
 .btn-secondary {

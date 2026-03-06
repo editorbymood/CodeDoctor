@@ -3,13 +3,13 @@ import React from 'react';
 export default function ScoreDashboard({ score, breakdown }) {
     // Map score to color
     const getColor = (val) => {
-        if (val >= 90) return 'text-emerald-400 border-emerald-400/30 bg-emerald-400/10';
+        if (val >= 90) return 'text-amber-400 border-amber-400/30 bg-amber-400/10';
         if (val >= 70) return 'text-yellow-400 border-yellow-400/30 bg-yellow-400/10';
         return 'text-red-400 border-red-400/30 bg-red-400/10';
     };
 
     const getStroke = (val) => {
-        if (val >= 90) return '#34d399';
+        if (val >= 90) return '#fbbf24';
         if (val >= 70) return '#facc15';
         return '#f87171';
     };

@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Navbar from '@/components/Navbar';
-import styles from './page.module.css';
+import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
+import styles from './LandingPage.module.css';
 
 // Ultra-minimalist SVG Icons
 const BrainIcon = () => (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="24" height="24"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" /><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" /><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4" /><path d="M17.599 6.5a3 3 0 0 0 .399-1.375" /></svg>);
@@ -91,11 +91,7 @@ export default function Home() {
 
   return (
     <div className={styles.pageWrapper}>
-      {/* Subtle Framer-style background glow */}
-      <div className={styles.ambientGlowTop}></div>
-      <div className={styles.ambientGlowBottom}></div>
-
-      <Navbar />
+      {/* Global Background Handles Glows */}
 
       <main className={styles.main}>
         {/* Hero Section */}
@@ -117,10 +113,10 @@ export default function Home() {
               </p>
 
               <div className={styles.actions}>
-                <Link href="/review" className={styles.btnPrimary}>
+                <Link to="/review" className={styles.btnPrimary}>
                   Start Free Review
                 </Link>
-                <Link href="/dashboard" className={styles.btnSecondary}>
+                <Link to="/dashboard" className={styles.btnSecondary}>
                   View Dashboard
                 </Link>
               </div>
@@ -161,7 +157,7 @@ export default function Home() {
 
         {/* High-End Marquee */}
         <section className={`${styles.marqueeSection} ${styles.revealSection}`}>
-          <p className={styles.marqueeLabel}>RELIED UPON BY ELITE ENGINEERING TEAMS WORLDWIDE</p>
+          <p className={styles.marqueeLabel}>TRUSTED BY ADVANCED ENGINEERING TEAMS</p>
           <div className={styles.marqueeMask}>
             <div className={styles.marqueeTrack}>
               {[...Array(3)].map((_, i) => (
@@ -203,9 +199,7 @@ export default function Home() {
                     <div className={styles.cardText}>
                       <h3>{feature.title}</h3>
                       <p>{feature.description}</p>
-                    </div>
-
-                    {feature.visual === 'pipeline' && (
+                    </div>         {feature.visual === 'pipeline' && (
                       <div className={styles.visualPipeline}>
                         <div className={styles.pipeNode}>Analyzer</div>
                         <div className={styles.pipeArrow}>→</div>
@@ -248,10 +242,10 @@ export default function Home() {
               <h2>Deploy better software, faster.</h2>
               <p>Join the elite development teams permanently eliminating technical debt.</p>
               <div className={styles.ctaActions}>
-                <Link href="/review" className={styles.btnPrimary}>
+                <Link to="/review" className={styles.btnPrimary}>
                   Start Code Review
                 </Link>
-                <Link href="https://github.com" target="_blank" rel="noreferrer" className={styles.btnSecondary}>
+                <Link to="https://github.com" target="_blank" rel="noreferrer" className={styles.btnSecondary}>
                   View GitHub
                 </Link>
               </div>
@@ -260,21 +254,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className={styles.footer}>
-        <div className="container">
-          <div className={styles.footerLayout}>
-            <div className={styles.footerBrand}>
-              <span className={styles.footerLogo}>Code Doctor</span>
-              <span className={styles.footerCopyright}>© {new Date().getFullYear()}</span>
-            </div>
-            <div className={styles.footerNav}>
-              <Link href="/review">Product</Link>
-              <Link href="/dashboard">Analytics</Link>
-              <Link href="#">Changelog</Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

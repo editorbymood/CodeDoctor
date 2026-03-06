@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 import { CheckCircle2, ShieldAlert, Cpu, Search, Wrench, Clock } from 'lucide-react';
 
 const AGENT_CONFIGS = {
-    auditor: { label: 'Code Auditor', icon: Search, color: 'text-sky-400', border: 'border-sky-400/30' },
+    auditor: { label: 'Code Auditor', icon: Search, color: 'text-orange-500', border: 'border-orange-500/30' },
     style: { label: 'Style Critic', icon: CheckCircle2, color: 'text-fuchsia-400', border: 'border-fuchsia-400/30' },
     security: { label: 'Security Scanner', icon: ShieldAlert, color: 'text-red-400', border: 'border-red-400/30' },
-    performance: { label: 'Perf Analyst', icon: Cpu, color: 'text-emerald-400', border: 'border-emerald-400/30' },
+    performance: { label: 'Perf Analyst', icon: Cpu, color: 'text-amber-400', border: 'border-amber-400/30' },
     refactor: { label: 'Refactor Engine', icon: Wrench, color: 'text-amber-400', border: 'border-amber-400/30' },
 };
 
@@ -37,7 +37,7 @@ export default function AgentStatus({ statuses }) {
                             className={`relative flex flex-col items-center p-4 rounded-xl border transition-all duration-500 ${isRunning
                                     ? `bg-white/5 ${config.border} shadow-[0_0_20px_-5px_rgba(255,255,255,0.1)]`
                                     : isCompleted
-                                        ? 'bg-black/40 border-emerald-500/20 opacity-80'
+                                        ? 'bg-black/40 border-amber-500/20 opacity-80'
                                         : 'bg-black/20 border-white/5 opacity-40'
                                 }`}
                         >
@@ -49,13 +49,13 @@ export default function AgentStatus({ statuses }) {
                                 />
                             )}
 
-                            <div className={`mb-3 p-3 rounded-full bg-black/50 border border-white/5 ${isRunning ? config.color : isCompleted ? 'text-emerald-500' : 'text-zinc-600'}`}>
+                            <div className={`mb-3 p-3 rounded-full bg-black/50 border border-white/5 ${isRunning ? config.color : isCompleted ? 'text-amber-500' : 'text-zinc-600'}`}>
                                 <Icon className="w-5 h-5" />
                             </div>
 
                             <span className="text-xs font-semibold text-center text-zinc-300 mb-1">{config.label}</span>
 
-                            <span className={`font-mono text-[10px] uppercase tracking-wider ${isRunning ? config.color : isCompleted ? 'text-emerald-500/70' : 'text-zinc-600'
+                            <span className={`font-mono text-[10px] uppercase tracking-wider ${isRunning ? config.color : isCompleted ? 'text-amber-500/70' : 'text-zinc-600'
                                 }`}>
                                 [{status}]
                             </span>

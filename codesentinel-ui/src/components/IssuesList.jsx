@@ -10,7 +10,7 @@ export default function IssuesList({ issues }) {
         switch (severity) {
             case 'critical': return 'border-red-500/30 bg-red-500/10 text-red-400';
             case 'warning': return 'border-amber-500/30 bg-amber-500/10 text-amber-400';
-            case 'info': return 'border-sky-500/30 bg-sky-500/10 text-sky-400';
+            case 'info': return 'border-orange-600/30 bg-orange-600/10 text-orange-500';
             default: return 'border-zinc-500/30 bg-zinc-500/10 text-zinc-400';
         }
     };
@@ -49,7 +49,7 @@ export default function IssuesList({ issues }) {
             <div className="flex-1 overflow-y-auto pr-2 space-y-4">
                 {filteredIssues.length === 0 ? (
                     <div className="flex flex-col items-center justify-center h-48 text-zinc-500 space-y-3 border border-dashed border-white/10 rounded-xl bg-black/20">
-                        <CheckCircle2 className="w-8 h-8 text-emerald-500/50" />
+                        <CheckCircle2 className="w-8 h-8 text-amber-500/50" />
                         <span className="font-mono text-sm uppercase tracking-widest">Zero Issues Detected</span>
                     </div>
                 ) : (

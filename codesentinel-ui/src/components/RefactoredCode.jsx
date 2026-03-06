@@ -23,13 +23,13 @@ export default function RefactoredCode({ originalCode, refactoredCode }) {
                 <h3 className="font-semibold text-white tracking-tight text-sm uppercase">Refactored Output</h3>
                 <div className="flex items-center gap-4 text-xs font-mono">
                     <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-red-500/50"></div> Removed</div>
-                    <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-emerald-500/50"></div> Added</div>
+                    <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-amber-500/50"></div> Added</div>
                 </div>
             </div>
 
             <div className="flex-1 overflow-auto bg-[#0d0d0d] p-4 font-mono text-sm leading-relaxed">
                 {diffs.map((part, index) => {
-                    const color = part.added ? 'bg-emerald-500/10 text-emerald-300'
+                    const color = part.added ? 'bg-amber-500/10 text-amber-300'
                         : part.removed ? 'bg-red-500/10 text-red-300 line-through opacity-70'
                             : 'text-zinc-300';
 

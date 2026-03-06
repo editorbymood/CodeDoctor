@@ -21,8 +21,8 @@ export default function CodeEditor({ code, setCode, language, setLanguage, isAna
                 <div className="flex items-center gap-3">
                     <LanguageSelector selected={language} onChange={setLanguage} />
                     {isAnalyzing && (
-                        <div className="flex items-center gap-2 text-sky-400 font-mono text-xs animate-pulse">
-                            <div className="w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_8px_#38bdf8]"></div>
+                        <div className="flex items-center gap-2 text-orange-500 font-mono text-xs animate-pulse">
+                            <div className="w-2 h-2 rounded-full bg-orange-500 shadow-[0_0_8px_#f97316]"></div>
                             <span>STREAMING_AST</span>
                         </div>
                     )}

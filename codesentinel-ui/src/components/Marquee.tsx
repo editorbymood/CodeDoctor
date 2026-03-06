@@ -8,7 +8,7 @@ const companies = ['Vercel', 'Linear', 'Raycast', 'Stripe', 'Figma', 'OpenAI'];
 export default function Marquee() {
     return (
         <RevealWrapper className={styles.marqueeSection}>
-            <p className={styles.marqueeLabel}>RELIED UPON BY ELITE ENGINEERING TEAMS WORLDWIDE</p>
+            <p className={styles.marqueeLabel}>TRUSTED BY ADVANCED ENGINEERING TEAMS</p>
             <div className={styles.marqueeMask}>
                 <div className={styles.marqueeTrack}>
                     {[...Array(3)].map((_, i) => (

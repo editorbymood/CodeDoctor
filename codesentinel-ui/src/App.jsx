@@ -5,8 +5,11 @@ import AgentStatus from './components/AgentStatus';
 import ScoreDashboard from './components/ScoreDashboard';
 import IssuesList from './components/IssuesList';
 import RefactoredCode from './components/RefactoredCode';
+import Navbar from './components/Navbar';
+import { Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
 
-export default function App() {
+function ReviewPage() {
   const [code, setCode] = useState('// Paste code here\nfunction processPayment(req) {\n  let id = req.id;\n  db.query("SELECT * FROM users WHERE id=" + id);\n}');
   const [language, setLanguage] = useState('javascript');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -107,20 +110,9 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen text-white flex flex-col items-center relative pb-20">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,0.05)_0%,rgba(0,0,0,0)_60%)] pointer-events-none z-0"></div>
+    <div className="min-h-screen text-white flex flex-col items-center relative pb-20 pt-28">
+      {/* Global Background managed at App level */}
 
-      {/* Navbar Header */}
-      <header className="w-full max-w-7xl mx-auto py-6 px-4 md:px-8 z-10 flex items-center justify-between border-b border-white/5 mb-8">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-400 to-indigo-500 shadow-[0_0_20px_rgba(56,189,248,0.4)]"></div>
-          <h1 className="text-xl font-bold tracking-tight">CodeSentinel</h1>
-        </div>
-        <div className="flex gap-4">
-          <button className="text-sm font-semibold text-zinc-400 hover:text-white transition-colors">Documentation</button>
-          <button className="text-sm font-semibold text-zinc-400 hover:text-white transition-colors">GitHub</button>
-        </div>
-      </header>
 
       <main className="w-full max-w-7xl mx-auto px-4 md:px-8 z-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
 
@@ -134,7 +126,7 @@ export default function App() {
             <button
               onClick={startAnalysis}
               disabled={isAnalyzing}
-              className={`flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm transition-all focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-black ${isAnalyzing ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed' : 'bg-white text-black hover:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.2)]'
+              className={`flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm transition-all focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-black ${isAnalyzing ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed' : 'bg-white text-black hover:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.2)]'
                 }`}
             >
               {isAnalyzing ? (
@@ -163,8 +155,8 @@ export default function App() {
 
           {isDone && mockResults && (
             <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
-              <div className="flex items-center justify-between glass-panel py-3 px-6 border-emerald-500/20 bg-emerald-500/5">
-                <span className="text-sm font-semibold text-emerald-400 uppercase tracking-widest">Analysis Complete</span>
+              <div className="flex items-center justify-between glass-panel py-3 px-6 border-amber-500/20 bg-amber-500/5">
+                <span className="text-sm font-semibold text-amber-400 uppercase tracking-widest">Analysis Complete</span>
                 <button onClick={exportMarkdown} className="flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-white transition-colors">
                   <FileDown className="w-4 h-4" /> Export Report
                 </button>
@@ -184,5 +176,21 @@ export default function App() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <>
+      <div className="fixed inset-0 z-[-1] bg-[#050505] overflow-hidden pointer-events-none selection:bg-orange-500/30">
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(234,88,12,0.12)_0%,rgba(0,0,0,0)_100%)]"></div>
+        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120vw] h-[600px] bg-[radial-gradient(ellipse_at_top,rgba(234,88,12,0.20)_0%,rgba(0,0,0,0)_70%)] rounded-[100%] blur-[80px]"></div>
+      </div>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/review" element={<ReviewPage />} />
+      </Routes>
+    </>
   );
 }
