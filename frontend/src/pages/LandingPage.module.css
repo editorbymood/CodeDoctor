@@ -1,0 +1,455 @@
+/* ------- BASE STYLES ------- */
+.pageWrapper {
+  position: relative;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: 140px;
+  align-items: center;
+}
+
+/* ------- SCROLL REVEALS ------- */
+.revealSection {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 1s ease, transform 1s ease;
+  will-change: opacity, transform;
+}
+
+.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ------- HERO SECTION ------- */
+.hero {
+  position: relative;
+  width: 100%;
+  padding: 80px 24px 120px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(circle at center 30%, black 20%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center 30%, black 20%, transparent 80%);
+  opacity: 0.6;
+}
+
+.heroGlow {
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(234, 88, 12, 0.20) 0%, rgba(245, 158, 11, 0.05) 40%, transparent 70%);
+  filter: blur(60px);
+  z-index: 0;
+  pointer-events: none;
+  animation: pulse-glow-bg 8s infinite alternate ease-in-out;
+}
+
+@keyframes pulse-glow-bg {
+  0% { transform: translateX(-50%) scale(1); opacity: 0.8; }
+  100% { transform: translateX(-50%) scale(1.1); opacity: 1; }
+}
+
+.heroContent {
+  position: relative;
+  z-index: 10;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pillBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+}
+
+.pillBadgeInner {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.pillBadgeText {
+  color: #a1a1aa;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.title {
+  font-size: 72px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: #fafafa;
+  margin-bottom: 24px;
+}
+
+.titleGradient {
+  color: #a1a1aa;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #a1a1aa;
+  max-width: 600px;
+  line-height: 1.6;
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+}
+
+.btnPrimary {
+  background: #ffffff;
+  color: #18181b;
+  height: 48px;
+  padding: 0 28px;
+  border-radius: 9999px;
+  font-size: 15px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.08);
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25), inset 0 1px 1px rgba(255, 255, 255, 1);
+  background: #ffffff;
+}
+
+.btnSecondary {
+  background: rgba(255, 255, 255, 0.03);
+  color: #ffffff;
+  height: 48px;
+  padding: 0 28px;
+  border-radius: 9999px;
+  font-size: 15px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.btnSecondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ------- EDITOR WINDOW ------- */
+.editorWrapper {
+  margin-top: 60px;
+  width: 100%;
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 100px rgba(255,255,255, 0.02);
+}
+
+.glassWindow {
+  background: #09090b;
+  text-align: left;
+  position: relative;
+}
+
+.glassHeader {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.trafficLights {
+  display: flex;
+  gap: 8px;
+}
+
+.trafficLights span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.editorWrapper:hover .trafficLights span:nth-child(1) { background: #ff5f56; }
+.editorWrapper:hover .trafficLights span:nth-child(2) { background: #ffbd2e; }
+.editorWrapper:hover .trafficLights span:nth-child(3) { background: #27c93f; }
+
+.tabName {
+  margin-left: 20px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #a1a1aa;
+}
+
+.windowStatus {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.statusMuted { color: #71717a; animation: pulse 2s infinite; }
+.statusDanger { color: #ef4444; text-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
+.statusSafe { color: #10b981; text-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+
+.glassBody {
+  display: flex;
+  padding: 24px 0 32px;
+}
+
+.codeLines {
+  padding: 0 20px;
+  text-align: right;
+  color: #52525b;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.codeContent {
+  margin: 0;
+  padding: 0 20px 0 0;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.6;
+  color: #f4f4f5;
+  white-space: pre-wrap;
+}
+
+/* ------- BASE STYLES FOR MARQUEE --------- */
+.marqueeSection {
+  width: 100%;
+  padding: 80px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.marqueeLabel {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #52525b;
+  margin-bottom: 32px;
+}
+
+.marqueeMask {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  animation: scroll 30s linear infinite;
+}
+
+.marqueeItems {
+  display: flex;
+  gap: 80px;
+  padding-right: 80px;
+  align-items: center;
+}
+
+.companyName {
+  font-size: 22px;
+  font-weight: 700;
+  color: #52525b;
+  letter-spacing: -0.02em;
+}
+
+/* ------- BENTO GRID ------- */
+.bentoSection {
+  width: 100%;
+  max-width: 1100px;
+  padding: 120px 24px;
+  margin: 0 auto;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.bentoTitle {
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+  color: #fafafa;
+}
+
+.bentoSubtitle {
+  font-size: 15px;
+  color: #71717a;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 240px;
+  gap: 16px;
+}
+
+.bentoCard {
+  background: #09090b;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 32px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.bentoCard:hover {
+  background: #0f0f12;
+  border-color: rgba(234, 88, 12, 0.15);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
+}
+
+.large { grid-column: span 2; grid-row: span 2; }
+.medium { grid-column: span 2; grid-row: span 1; }
+.small { grid-column: span 1; grid-row: span 1; }
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.cardIcon {
+  color: #e2e8f0;
+  margin-bottom: 24px;
+  width: 32px;
+  height: 32px;
+}
+
+.cardText h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.cardText p {
+  font-size: 14px;
+  color: #a1a1aa;
+  line-height: 1.5;
+}
+
+/* ------- VISUALS ------- */
+.visualPipeline, .visualLangs, .visualChart {
+  margin-top: auto;
+  padding-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.pipeNode { font-size: 12px; font-weight: 500; color: #a1a1aa; }
+.pipeArrow { color: #52525b; }
+.langItem { font-size: 12px; font-weight: 600; color: #d4d4d8; }
+
+/* ------- CTA ------- */
+.ctaSection {
+  width: 100%;
+  padding: 80px 24px 120px;
+}
+
+.ctaCard {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #09090b;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 32px;
+  padding: 64px 40px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ctaCard:hover {
+  border-color: rgba(234, 88, 12, 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+.ctaCard h2 {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+
+.ctaCard p {
+  font-size: 16px;
+  color: #a1a1aa;
+  margin: 0 auto 32px;
+}
+
+.ctaActions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+@keyframes scroll { to { transform: translateX(-50%); } }
+
+@media (max-width: 768px) {
+  .title { font-size: 40px; }
+  .subtitle { font-size: 16px; }
+  .bentoGrid { grid-template-columns: 1fr; }
+  .large, .medium, .small { grid-column: span 1; grid-row: auto; }
+}

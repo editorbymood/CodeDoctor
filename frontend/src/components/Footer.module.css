@@ -1,150 +1,220 @@
-.footer {
-    padding: 80px 0 40px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    margin-top: 80px;
-    background: rgba(0, 0, 0, 0.4);
+.footerWrapper {
+    position: relative;
+    padding: 100px 0 40px;
+    background-color: #050506;
+    overflow: hidden;
+    margin-top: auto;
+}
+
+/* Stunning Top Glowing Divider */
+.topDivider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    display: flex;
+    justify-content: center;
+}
+
+.glowLine {
+    height: 100%;
+    width: 200px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+}
+
+/* Ambient Deep Space Background */
+.ambientBackground {
+    display: none;
 }
 
 .footerGrid {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 48px;
-    margin-bottom: 60px;
+    gap: 60px;
+    margin-bottom: 80px;
 }
 
-.footerBrand {
+/* Brand Area */
+.brandSection {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    max-width: 320px;
 }
 
-.footerLogoLink {
-    display: flex;
+.brandLink {
+    display: inline-flex;
     align-items: center;
     gap: 12px;
     text-decoration: none;
+    width: fit-content;
 }
 
-.logoMark {
-    width: 20px;
-    height: 20px;
-    border-radius: 6px;
-    background: linear-gradient(135deg, var(--accent-emerald) 0%, var(--accent-cyan) 100%);
+.logoIcon {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+    width: 32px;
+    height: 32px;
+    background: #ffffff;
+    border-radius: 4px;
 }
 
-.logoDot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #000;
-}
-
-.footerLogo {
+.brandName {
+    font-size: 1.25rem;
     font-weight: 700;
-    font-size: 1.2rem;
+    letter-spacing: -0.02em;
     color: #ffffff;
-    letter-spacing: -0.03em;
 }
 
-.footerDescription {
+.brandDescription {
     color: #a1a1aa;
-    line-height: 1.6;
     font-size: 0.95rem;
-}
-
-.socialLinks {
-    display: flex;
-    gap: 12px;
+    line-height: 1.6;
+    max-width: 320px;
     margin-top: 8px;
 }
 
-.socialIcon {
-    color: #71717a;
+/* Navigation Lists */
+.navSection {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.2s ease;
+    flex-direction: column;
 }
 
-.socialIcon:hover {
+.navString {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: #ffffff;
-    background: rgba(255, 255, 255, 0.08);
-    transform: translateY(-2px);
+    margin-bottom: 24px;
 }
 
-.footerLinksColumn {
+.navList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-.footerLinksColumn h4 {
-    color: #ffffff;
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-
-.footerLinksColumn a {
+.navLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     color: #a1a1aa;
     text-decoration: none;
     font-size: 0.95rem;
-    transition: color 0.2s ease;
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
 
-.footerLinksColumn a:hover {
-    color: var(--accent-amber);
+.linkIcon {
+    width: 14px;
+    height: 14px;
+    opacity: 0;
+    transform: translate(-4px, 4px);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.footerBottom {
+.navLink:hover {
+    color: #ffffff;
+}
+
+.navLink:hover .linkIcon {
+    opacity: 1;
+    transform: translate(0, 0);
+    color: #ffffff;
+}
+
+/* Social Grid */
+.socialSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.socialGrid {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.socialIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #a1a1aa;
+    transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.socialIcon:hover {
+    background: rgba(234, 88, 12, 0.1);
+    color: #ffffff;
+    border-color: rgba(234, 88, 12, 0.25);
+    transform: translateY(-2px);
+}
+
+/* Bottom Bar */
+.bottomBar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-top: 32px;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.copyright {
     color: #71717a;
     font-size: 0.85rem;
 }
 
-.footerLegal {
-    display: flex;
-    gap: 24px;
+.statusPill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: transparent;
+    border: 1px solid #27272a;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #a1a1aa;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-.footerLegal a {
-    color: #71717a;
-    text-decoration: none;
-    transition: color 0.2s ease;
+.statusDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #f59e0b; /* Changed from b10b981 green to amber to match the theme */
 }
 
-.footerLegal a:hover {
-    color: #ffffff;
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 rgba(245, 158, 11, 0.0); }
+    50% { opacity: 0.5; transform: scale(0.8); box-shadow: 0 0 10px rgba(245, 158, 11, 0.6); }
 }
 
-@media (max-width: 992px) {
+/* Responsive Overrides */
+@media (max-width: 1024px) {
     .footerGrid {
         grid-template-columns: 1fr 1fr;
+        row-gap: 48px;
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 640px) {
     .footerGrid {
         grid-template-columns: 1fr;
     }
-
-    .footerBottom {
+    
+    .bottomBar {
         flex-direction: column;
         gap: 16px;
         text-align: center;

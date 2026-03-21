@@ -1,43 +1,42 @@
-/* ------- WRAPPER & POSITIONING ------- */
 .navWrapper {
     position: fixed;
-    top: 0;
+    top: 24px;
     left: 0;
     width: 100%;
-    z-index: 1000;
     display: flex;
     justify-content: center;
-    padding: 24px 24px 0;
-    pointer-events: none; /* Let clicks pass through empty space */
+    z-index: 1000;
+    pointer-events: none;
 }
 
-/* ------- MAIN NAVBAR ------- */
 .navbar {
-    width: 100%;
-    max-width: 1200px;
-    height: 64px;
+    pointer-events: auto;
+    width: calc(100% - 48px);
+    max-width: 900px;
+    height: 56px;
     display: flex;
     align-items: center;
-    background: rgba(10, 10, 10, 0.4);
-    backdrop-filter: blur(24px) saturate(150%);
-    -webkit-backdrop-filter: blur(24px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 999px;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    pointer-events: auto; /* Re-enable clicks for the bar */
+    background: rgba(15, 15, 20, 0.6);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 9999px;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 0 8px 0 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.05);
 }
 
 .scrolled {
-    background: rgba(8, 8, 8, 0.75);
-    border-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transform: translateY(-8px); /* Optional: move it slightly up on scroll */
+    background: rgba(10, 10, 13, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    transform: translateY(-8px);
+    max-width: 860px;
 }
 
-.container {
+.navInner {
     width: 100%;
-    padding: 0 16px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -50,43 +49,23 @@
     gap: 12px;
     text-decoration: none;
     flex: 1;
-    padding-left: 8px;
 }
 
 .logoMark {
-    position: relative;
-    width: 24px;
-    height: 24px;
-    border-radius: 6px;
-    background: linear-gradient(135deg, var(--accent-emerald) 0%, var(--accent-cyan) 100%);
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
-    overflow: hidden;
-}
-
-.logoRing {
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(transparent, transparent, transparent, rgba(255,255,255,0.8));
-    animation: rotate 4s linear infinite;
 }
 
 .logoDot {
-    position: relative;
     width: 8px;
     height: 8px;
-    border-radius: 50%;
-    background: #000;
-    z-index: 2;
-}
-
-@keyframes rotate {
-    100% { transform: rotate(360deg); }
+    border-radius: 2px;
+    background: #000000;
 }
 
 .brandText {
@@ -96,269 +75,89 @@
     letter-spacing: -0.03em;
 }
 
-/* ------- LINKS CENTER (MAGNETIC EFFECT) ------- */
-.navLinksCenter {
+/* ------- LINKS CENTER ------- */
+.navLinks {
     display: flex;
     align-items: center;
     gap: 4px;
-    background: rgba(255, 255, 255, 0.03);
-    padding: 6px;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 4px;
     border-radius: 999px;
     border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.02);
 }
 
-.navItem {
-    position: relative;
+.liquidNavItem {
     display: flex;
     align-items: center;
-    gap: 8px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 9999px;
+    background: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    overflow: hidden;
     color: #a1a1aa;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.liquidNavItem.expanded {
+    background: rgba(255, 255, 255, 0.08); /* This gets overridden inline, but serves as fallback */
+    color: #ffffff;
+}
+
+.iconWrapper {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.textWrapper {
     font-size: 0.85rem;
     font-weight: 500;
-    text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 999px;
-    transition: color 0.3s ease;
-    z-index: 1;
-}
-
-.itemIcon {
-    display: flex;
-    align-items: center;
-    transition: color 0.3s ease;
-}
-
-.itemLabel {
-    position: relative;
-    z-index: 2;
-}
-
-.navItem:hover {
-    color: #ffffff;
-}
-
-/* The pseudo pill for hover effect */
-.navItem::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 999px;
-    opacity: 0;
-    transform: scale(0.95);
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: -1;
-}
-
-.navItem:hover::before {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* The active pill */
-.activePill {
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.12);
-    border-radius: 999px;
-    z-index: -1;
-    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
-}
-
-.active {
-    color: #ffffff;
+    white-space: nowrap;
 }
 
 /* ------- ACTION RIGHT ------- */
-.navActionsRight {
+.navActions {
     flex: 1;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
-    gap: 12px;
-    padding-right: 4px;
 }
 
-.githubBtn {
-    color: #a1a1aa;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
+.actionBtn {
+    background: #ffffff;
+    color: #000000;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 8px 20px;
+    border-radius: 9999px;
+    text-decoration: none;
     transition: all 0.2s ease;
 }
 
-.githubBtn:hover {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.08);
+.actionBtn:hover {
+    background: #e4e4e7;
 }
 
-/* The best button available */
-.shimmerBtn {
-    position: relative;
-    background: #ffffff;
-    color: #000000;
-    height: 40px;
-    padding: 0 20px;
-    border-radius: 999px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    overflow: hidden;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.25);
-}
-
-.shimmerText {
-    position: relative;
-    z-index: 2;
-}
-
-.shimmerWave {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-    transform: skewX(-20deg);
-    animation: shimmerSlide 3s infinite;
-    z-index: 1;
-    mix-blend-mode: overlay;
-}
-
-@keyframes shimmerSlide {
-    0% { left: -100%; }
-    20% { left: 200%; }
-    100% { left: 200%; }
-}
-
-.shimmerBtn:hover {
-    transform: scale(0.97);
-    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.4);
-}
-
-.mobileToggle {
-    display: none;
-    background: transparent;
-    border: none;
-    color: #ffffff;
-    padding: 8px;
-    cursor: pointer;
-}
-
-/* ------- MOBILE FULLSCREEN MENU ------- */
-.mobileMenu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(5, 5, 5, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 999; /* Just below navbar */
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    display: flex;
-    flex-direction: column;
-    padding-top: 100px; /* Space for navbar */
-}
-
-.mobileMenuOpen {
-    opacity: 1;
-    visibility: visible;
-}
-
-.mobileMenuContainer {
-    display: flex;
-    flex-direction: column;
-    padding: 0 24px;
-    gap: 8px;
-}
-
-.mobileNavItem {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #a1a1aa;
-    text-decoration: none;
-    padding: 16px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    transform: translateY(20px);
-    opacity: 0;
-    transition: color 0.3s ease;
-}
-
-.mobileMenuOpen .mobileNavItem {
-    animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes slideUpFade {
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-.mobileIcon {
-    color: var(--accent-cyan);
-    display: flex;
-}
-
-.mobileNavItem:hover {
-    color: #ffffff;
-}
-
-.mobileBottomActions {
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    transform: translateY(20px);
-    opacity: 0;
-}
-
-.mobileMenuOpen .mobileBottomActions {
-    animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 0.2s;
-}
-
-.mobileDeployBtn {
-    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald));
-    color: #ffffff;
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-align: center;
-    padding: 16px;
-    border-radius: 12px;
-    text-decoration: none;
-    box-shadow: 0 10px 30px rgba(234, 88, 12, 0.3);
-}
-
-/* ------- RESPONSIVE BREAKPOINTS ------- */
-@media (max-width: 900px) {
-    .navLinksCenter {
+/* ------- RESPONSIVE ------- */
+@media (max-width: 768px) {
+    .navActions {
         display: none;
     }
-    
-    .shimmerBtn {
-        display: none;
-    }
-    
-    .mobileToggle {
-        display: flex;
+
+    .brand {
+        flex: none;
     }
 
-    .navWrapper {
-        padding: 16px 16px 0;
+    .navLinks {
+        flex: 1;
+        justify-content: flex-end;
+        background: transparent;
+        border: none;
+        box-shadow: none;
     }
 }

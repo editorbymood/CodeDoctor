@@ -1,124 +1,105 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Sparkles, Settings, CreditCard, HelpCircle, ScanLine, Activity } from 'lucide-react';
 import styles from './Navbar.module.css';
 
-// Premium SVG Icons
-const TargetIcon = () => (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" /></svg>);
-const ChartIcon = () => (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="16" height="16"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg>);
-const BookIcon = () => (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="16" height="16"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" /></svg>);
-const TagIcon = () => (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="16" height="16"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" /><line x1="7" y1="7" x2="7.01" y2="7" /></svg>);
-const GithubIcon = () => (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="18" height="18"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>);
-const MenuIcon = () => (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="20" height="20"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>);
-const CloseIcon = () => (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="20" height="20"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>);
+const springTransition = { type: 'spring' as const, bounce: 0, duration: 0.6 };
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const pathname = usePathname();
+    const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+    const location = useLocation();
+    const pathname = location.pathname;
 
     useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 20);
-        };
-        window.addEventListener('scroll', handleScroll, { passive: true });
+        const handleScroll = () => setScrolled(window.scrollY > 20);
+        window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Prevent scrolling when mobile menu is open
-    useEffect(() => {
-        if (mobileMenuOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-        return () => { document.body.style.overflow = 'unset'; };
-    }, [mobileMenuOpen]);
-
     const navLinks = [
-        { href: '/review', icon: <TargetIcon />, label: 'Scanner' },
-        { href: '/dashboard', icon: <ChartIcon />, label: 'Telemetry' },
-        { href: '#', icon: <BookIcon />, label: 'Docs' },
-        { href: '#', icon: <TagIcon />, label: 'Pricing' },
+        { id: '/#features', label: 'Features', href: '/#features', icon: <Sparkles size={16} /> },
+        { id: '/#pricing', label: 'Pricing', href: '/#pricing', icon: <CreditCard size={16} /> },
+        { id: '/#faq', label: 'FAQ', href: '/#faq', icon: <HelpCircle size={16} /> },
+        { id: '/review', label: 'Scanner', href: '/review', icon: <ScanLine size={16} /> },
+        { id: '/dashboard', label: 'Telemetry', href: '/dashboard', icon: <Activity size={16} /> }
     ];
 
+    // Combine pathname and hash for solid active state logic
+    const currentPath = location.pathname + location.hash;
+
     return (
-        <>
-            <div className={styles.navWrapper}>
-                <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
-                    <div className={styles.container}>
-                        
-                        {/* Brand */}
-                        <Link href="/" className={styles.brand}>
-                            <div className={styles.logoMark}>
-                                <div className={styles.logoRing}></div>
-                                <div className={styles.logoDot}></div>
-                            </div>
-                            <span className={styles.brandText}>Code Doctor</span>
-                        </Link>
+        <div className={styles.navWrapper}>
+            <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
+                <div className={styles.navInner}>
 
-                        {/* Desktop Web Links */}
-                        <div className={styles.navLinksCenter}>
-                            {navLinks.map((link) => {
-                                const isActive = pathname === link.href;
-                                return (
-                                    <Link key={link.label} href={link.href} className={`${styles.navItem} ${isActive ? styles.active : ''}`}>
-                                        <span className={styles.itemIcon}>{link.icon}</span>
-                                        <span className={styles.itemLabel}>{link.label}</span>
-                                        {isActive && <div className={styles.activePill}></div>}
-                                    </Link>
-                                );
-                            })}
-                        </div>
-
-                        {/* Desktop Actions */}
-                        <div className={styles.navActionsRight}>
-                            <Link href="https://github.com" target="_blank" rel="noopener noreferrer" className={styles.githubBtn} aria-label="GitHub">
-                                <GithubIcon />
-                            </Link>
-                            <Link href="/review" className={styles.shimmerBtn}>
-                                <span className={styles.shimmerText}>Deploy Agents</span>
-                                <div className={styles.shimmerWave}></div>
-                            </Link>
-                            
-                            {/* Mobile Menu Toggle */}
-                            <button 
-                                className={styles.mobileToggle} 
-                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                                aria-label="Toggle menu"
-                            >
-                                {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
-                            </button>
-                        </div>
-
+                {/* Logo / Brand */}
+                <Link to="/" className={styles.brand}>
+                    <div className={styles.logoMark}>
+                        <div className={styles.logoDot}></div>
                     </div>
-                </nav>
-            </div>
+                    <span className={styles.brandText}>Code Doctor</span>
+                </Link>
 
-            {/* Mobile Fullscreen Menu */}
-            <div className={`${styles.mobileMenu} ${mobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
-                <div className={styles.mobileMenuContainer}>
-                    {navLinks.map((link, i) => (
-                        <Link 
-                            key={link.label} 
-                            href={link.href} 
-                            className={styles.mobileNavItem}
-                            style={{ animationDelay: `${i * 0.05}s` }}
-                            onClick={() => setMobileMenuOpen(false)}
-                        >
-                            <span className={styles.mobileIcon}>{link.icon}</span>
-                            <span>{link.label}</span>
-                        </Link>
-                    ))}
-                    <div className={styles.mobileBottomActions}>
-                        <Link href="/review" className={styles.mobileDeployBtn} onClick={() => setMobileMenuOpen(false)}>
-                            Deploy Code Agents
-                        </Link>
-                    </div>
+                {/* Global Links - The Liquid Navigation Dock */}
+                <div 
+                    className={styles.navLinks}
+                    onMouseLeave={() => setHoveredItem(null)}
+                >
+                    <AnimatePresence>
+                        {navLinks.map((item) => {
+                            const isActive = currentPath === item.href || (currentPath === '/' && item.href === '/#features'); 
+                            const isHovered = hoveredItem === item.id;
+                            const isExpanded = isHovered || isActive;
+
+                            return (
+                                <motion.a 
+                                    key={item.id}
+                                    href={item.href} 
+                                    layout
+                                    className={styles.liquidNavItem}
+                                    onMouseEnter={() => setHoveredItem(item.id)}
+                                    animate={{
+                                        backgroundColor: isExpanded ? 'rgba(255, 255, 255, 0.08)' : 'rgba(255, 255, 255, 0)',
+                                        color: isExpanded ? '#ffffff' : '#a1a1aa'
+                                    }}
+                                    transition={springTransition}
+                                    style={{ borderRadius: 9999 }}
+                                >
+                                    <motion.div layout="position" className={styles.iconWrapper} transition={springTransition}>
+                                        {item.icon}
+                                    </motion.div>
+                                    
+                                    <motion.div
+                                        initial={false}
+                                        animate={{ 
+                                            width: isExpanded ? 'auto' : 0,
+                                            opacity: isExpanded ? 1 : 0,
+                                            paddingRight: isExpanded ? 14 : 0
+                                        }}
+                                        transition={springTransition}
+                                        style={{ overflow: 'hidden', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center' }}
+                                    >
+                                        <span className={styles.textWrapper}>{item.label}</span>
+                                    </motion.div>
+                                </motion.a>
+                            );
+                        })}
+                    </AnimatePresence>
                 </div>
-            </div>
-        </>
+
+                {/* Action Button */}
+                <div className={styles.navActions}>
+                    {/* Intentionally left empty to maintain space if needed, or removing entirely based on layout. 
+                        Removing the specific button logic as requested. */}
+                </div>
+
+                </div>
+
+            </nav>
+        </div>
     );
 }
