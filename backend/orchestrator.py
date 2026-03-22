@@ -1,6 +1,8 @@
 import asyncio
 from agents import auditor, style, security, performance, refactor
 
+AGENT_TIMEOUT = 30  # seconds per agent
+
 def aggregate_results(results):
     auditor_res, style_res, sec_res, perf_res, refactored = results
     
@@ -12,9 +14,6 @@ def aggregate_results(results):
     perf_count = len(perf_res)
     
     weighted_pts = (bugs_count * 40) + (sec_count * 30) + (style_count * 15) + (perf_count * 15)
-    # Map points to 0-100 scale (Assuming each point drops score slightly, user specified score = 100 - weighted_points)
-    # However subtracting exact weighted_pts will drop score to negatives very quickly.
-    # The requirement is: Score = 100 - (weighted_issue_points)
     score = max(0, 100 - weighted_pts)
     
     all_issues = auditor_res + style_res + sec_res + perf_res
@@ -34,10 +33,14 @@ def aggregate_results(results):
 async def run_agent_and_yield(agent_name, agent_coro, queue):
     await queue.put({"type": "status", "agent": agent_name, "status": "running"})
     try:
-        result = await agent_coro
+        result = await asyncio.wait_for(agent_coro, timeout=AGENT_TIMEOUT)
         await queue.put({"type": "result", "agent": agent_name, "data": result})
         await queue.put({"type": "status", "agent": agent_name, "status": "completed"})
+    except asyncio.TimeoutError:
+        print(f"Agent '{agent_name}' timed out after {AGENT_TIMEOUT}s")
+        await queue.put({"type": "status", "agent": agent_name, "status": "error", "message": f"Agent timed out after {AGENT_TIMEOUT}s"})
     except Exception as e:
+        print(f"Agent '{agent_name}' failed: {e}")
         await queue.put({"type": "status", "agent": agent_name, "status": "error", "message": str(e)})
 
 async def run_all_agents_stream(code: str, language: str):
@@ -68,7 +71,7 @@ async def run_all_agents_stream(code: str, language: str):
         elif msg["type"] == "status" and msg["status"] in ["completed", "error"]:
             completed_agents += 1
             
-    # Compile final aggregated payload
+    # Compile final aggregated payload — gracefully handle missing agents
     ordered_res = [
         results_map.get("auditor", []),
         results_map.get("style", []),
@@ -83,12 +86,20 @@ async def run_all_agents_stream(code: str, language: str):
 async def run_all_agents(code: str, language: str):
     """
     Legacy synchronous endpoint for non-streaming clients.
+    Each agent runs with a timeout; failures are gracefully handled.
     """
+    async def safe_run(coro, default):
+        try:
+            return await asyncio.wait_for(coro, timeout=AGENT_TIMEOUT)
+        except (asyncio.TimeoutError, Exception) as e:
+            print(f"Agent failed in non-stream mode: {e}")
+            return default
+
     results = await asyncio.gather(
-        auditor.analyze(code, language),
-        style.analyze(code, language),
-        security.analyze(code, language),
-        performance.analyze(code, language),
-        refactor.rewrite(code, language),
+        safe_run(auditor.analyze(code, language), []),
+        safe_run(style.analyze(code, language), []),
+        safe_run(security.analyze(code, language), []),
+        safe_run(performance.analyze(code, language), []),
+        safe_run(refactor.rewrite(code, language), ""),
     )
     return aggregate_results(results)

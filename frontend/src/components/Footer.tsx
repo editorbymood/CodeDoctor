@@ -61,7 +61,7 @@ export default function Footer() {
                             <span className={styles.brandName}>Code Doctor</span>
                         </Link>
                         <p className={styles.brandDescription}>
-                            The elite intelligence standard for automated code reviews. Permanently eliminate technical debt with multi-agent architecture.
+                            The only code review tool you need because you apparently can't write code without making a mess.
                         </p>
                     </motion.div>
 
@@ -136,10 +136,10 @@ export default function Footer() {
                     viewport={{ once: true }}
                     transition={{ delay: 0.6, duration: 0.8 }}
                 >
-                    <p className={styles.copyright}>© {currentYear} Code Doctor Intelligence. All rights reserved.</p>
+                    <p className={styles.copyright}>© {currentYear} Code Doctor LLC (Please don't sue us). All rights reserved.</p>
                     <div className={styles.statusPill}>
                         <span className={styles.statusDot}></span>
-                        All systems operational
+                        Some systems might work
                     </div>
                 </motion.div>
             </div>

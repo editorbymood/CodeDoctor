@@ -1,59 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Grotesk:wght@400;700&display=swap');
 
 :root {
   /* Color System */
-  --bg-primary: #050505;
-  --bg-secondary: #0a0a0d;
-  --bg-tertiary: #121216;
-  --bg-card: rgba(10, 10, 13, 0.6);
-  --bg-card-hover: rgba(18, 18, 24, 0.8);
-  --bg-glass: rgba(10, 10, 13, 0.5);
+  --bg-primary: #fffceb; /* light cream */
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #fecaca; /* rose-200 */
+  --bg-card: #ffffff;
+  --bg-card-hover: #fef08a; /* yellow-200 */
+  --bg-glass: #ffffff;
 
-  --text-primary: #fafafa;
-  --text-secondary: #a1a1aa;
-  --text-tertiary: #71717a;
-  --text-muted: #52525b;
+  --text-primary: #000000;
+  --text-secondary: #1f2937; /* gray-800 */
+  --text-tertiary: #4b5563; /* gray-600 */
+  --text-muted: #6b7280;
 
-  /* Primary Brand Overrides (Replacing legacy colors with Amber/Orange scales) */
-  --accent-cyan: #ea580c;        /* Used broadly as primary brand color */
-  --accent-cyan-glow: rgba(234, 88, 12, 0.25);
-  --accent-emerald: #f59e0b;     /* Used for gradients/secondary */
-  --accent-emerald-glow: rgba(245, 158, 11, 0.25);
+  /* Primary Brand - Neo Brutalism */
+  --accent-cyan: #22d3ee;        /* cyan-400 */
+  --accent-cyan-glow: #0891b2;
+  --accent-emerald: #34d399;     /* emerald-400 */
+  --accent-emerald-glow: #059669;
   
-  --accent-violet: #ea580c;      /* Replaced with brand consistency */
-  --accent-violet-glow: rgba(234, 88, 12, 0.2);
-  --accent-amber: #f59e0b;
-  --accent-amber-glow: rgba(245, 158, 11, 0.2);
+  --accent-violet: #c084fc;      /* purple-400 */
+  --accent-amber: #fbbf24;       /* amber-400 */
+  --accent-pink: #f472b6;        /* pink-400 */
 
   --severity-critical: #ef4444;
-  --severity-critical-bg: rgba(239, 68, 68, 0.12);
+  --severity-critical-bg: #fca5a5;
   --severity-high: #f97316;
-  --severity-high-bg: rgba(249, 115, 22, 0.12);
+  --severity-high-bg: #fdba74;
   --severity-medium: #eab308;
-  --severity-medium-bg: rgba(234, 179, 8, 0.12);
+  --severity-medium-bg: #fde047;
   --severity-low: #3b82f6;
-  --severity-low-bg: rgba(59, 130, 246, 0.12);
+  --severity-low-bg: #93c5fd;
 
-  --border-color: rgba(255, 255, 255, 0.06);
-  --border-glow: rgba(234, 88, 12, 0.3);
+  --border-color: #000000;
+  --border-glow: #000000;
 
   /* Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --font-sans: 'Space Grotesk', 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   /* Spacing */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --radius-xl: 32px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.6);
-  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.05);
-  --shadow-glow-cyan: 0 0 24px rgba(234, 88, 12, 0.15);
-  --shadow-glow-emerald: 0 0 24px rgba(245, 158, 11, 0.15);
-  --shadow-glow-violet: 0 0 24px rgba(234, 88, 12, 0.15);
+  /* Shadows - Neo Brutalist Hard Shadows */
+  --shadow-sm: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-md: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-lg: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-glow-cyan: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-glow-emerald: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-glow-violet: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  
+  /* Utilities for Neo Brutalism borders */
+  --bw-border: 4px solid #000;
 }
 
 * {
@@ -69,7 +71,9 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background-color: transparent;
+  background-color: var(--bg-primary);
+  background-image: radial-gradient(#000 1px, transparent 1px);
+  background-size: 24px 24px;
   color: var(--text-primary);
   line-height: 1.6;
   letter-spacing: -0.015em;
@@ -80,34 +84,36 @@ body {
 }
 
 a {
-  color: var(--accent-cyan);
-  text-decoration: none;
-  transition: color 0.2s ease;
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  font-weight: bold;
+  transition: all 0.2s ease;
 }
 
 a:hover {
-  color: var(--text-primary);
+  color: var(--accent-pink);
+  text-decoration-color: var(--accent-pink);
 }
 
 code, pre {
   font-family: var(--font-mono);
 }
 
-/* ======= Glassmorphism Card ======= */
+/* ======= Glassmorphism Card becomes Neo Brutalist Card ======= */
 .glass-card {
-  background: var(--bg-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  border: var(--bw-border);
   border-radius: var(--radius-lg);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-md);
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .glass-card:hover {
   background: var(--bg-card-hover);
-  border-color: var(--border-glow);
-  box-shadow: var(--shadow-glow-cyan);
-  transform: translateY(-2px);
+  transform: translate(-4px, -4px);
+  box-shadow: var(--shadow-lg);
 }
 
 /* ======= Buttons ======= */
@@ -117,41 +123,41 @@ code, pre {
   justify-content: center;
   gap: 8px;
   padding: 12px 28px;
-  border-radius: 9999px;
+  border-radius: var(--radius-md);
   font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: 0.95rem;
+  font-weight: 900;
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   cursor: pointer;
-  border: none;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: var(--bw-border);
+  box-shadow: var(--shadow-md);
+  transition: all 0.1s ease;
   text-decoration: none;
+  color: #000;
+}
+
+.btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px 0px rgba(0,0,0,1);
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald));
-  color: #fff;
-  box-shadow: 0 4px 15px rgba(234, 88, 12, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--accent-pink);
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(234, 88, 12, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.5);
-  color: #fff;
+  background: var(--accent-cyan);
+  color: #000;
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-  backdrop-filter: blur(10px);
+  background: var(--accent-amber);
 }
 
 .btn-secondary:hover {
-  border-color: rgba(255,255,255,0.15);
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text-primary);
-  transform: translateY(-2px);
+  background: var(--accent-emerald);
+  color: #000;
 }
 
 /* ======= Animations ======= */
@@ -170,52 +176,43 @@ code, pre {
   to { opacity: 1; transform: translateX(0); }
 }
 
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 5px rgba(234, 88, 12, 0.2); }
-  50% { box-shadow: 0 0 20px rgba(234, 88, 12, 0.4); }
-}
-
-@keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes scan-line {
-  0% { top: -5%; }
-  100% { top: 105%; }
+@keyframes wobbly {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
+  animation: fadeInUp 0.4s ease-out forwards;
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-wobbly:hover {
+  animation: wobbly 0.5s ease-in-out infinite;
 }
 
 /* ======= Scrollbar ======= */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 12px;
+  height: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
+  background: var(--bg-primary);
+  border-left: var(--bw-border);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--text-tertiary);
-  border-radius: 3px;
+  background: var(--accent-pink);
+  border: var(--bw-border);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
+  background: var(--accent-cyan);
 }
 
 /* ======= Container ======= */

@@ -18,34 +18,34 @@ const BarChartIcon = () => (<svg viewBox="0 0 24 24" fill="none" stroke="current
 
 const features = [
   {
-    title: 'Multi-Agent CI/CD',
-    description: 'A sequential pipeline of Analyzer, Critic, and Refactor agents working automatically.',
+    title: 'Agent Abuse System',
+    description: 'We force three AI agents to look at your code so they can fix your mess.',
     size: 'large',
     icon: <BrainIcon />,
     visual: 'pipeline',
   },
   {
-    title: 'Security Auditing',
-    description: 'Real-time architectural scanning mapped strictly against CVE databases.',
+    title: 'Hack-Proofing Your Mess',
+    description: 'Finding all the backdoors you accidentally left wide open.',
     size: 'small',
     icon: <ShieldIcon />,
   },
   {
-    title: 'SSE Telemetry',
-    description: 'Monitor the exact reasoning steps live via sub-millisecond streams.',
+    title: 'Real-Time Roasting',
+    description: 'Watch our AI insult your variable names with sub-millisecond latency.',
     size: 'small',
     icon: <ActivityIcon />,
   },
   {
-    title: 'Debt Analytics',
-    description: 'Track aggregate technical debt elimination and velocity metrics organization-wide.',
+    title: 'Depressing Stats',
+    description: 'Dashboards that show exactly how much technical debt you\'re hiding.',
     size: 'medium',
     icon: <BarChartIcon />,
     visual: 'chart',
   },
   {
-    title: 'Universal Parser',
-    description: 'Syntax detection and deep AST mapping.',
+    title: 'We Read Your Spaghett',
+    description: 'We can parse your terrible code in multiple languages.',
     size: 'small',
     icon: <CodeIcon />,
     visual: 'languages',
@@ -126,7 +126,7 @@ export default function Home() {
                 transition={{ delay: 0.2, duration: 0.6 }}
               >
                 <span className={styles.pillBadgeInner}>Code Doctor 2.0</span>
-                <span className={styles.pillBadgeText}>The intelligence era.</span>
+                <span className={styles.pillBadgeText}>Don't be a dummy.</span>
               </motion.div>
 
               <motion.h1 
@@ -135,8 +135,8 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
               >
-                Code reviews, <br />
-                <span className={styles.titleGradient}>automated.</span>
+                Fix your trash code, <br />
+                <span className={styles.titleGradient}>automatically.</span>
               </motion.h1>
 
               <motion.p 
@@ -145,7 +145,7 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5, duration: 1 }}
               >
-                An elite multi-agent system that autonomously audits, critiques, and perfectly refactors your entire codebase in seconds.
+                Your code is a dumpster fire. Let our sassy AI agents roast it and actually fix your garbage before your boss finds out.
               </motion.p>
 
               <motion.div 
@@ -155,10 +155,10 @@ export default function Home() {
                 transition={{ delay: 0.6, duration: 0.6 }}
               >
                 <Link to="/review" className={styles.btnPrimary}>
-                  Start Free Review
+                  Roast My Code
                 </Link>
                 <Link to="/dashboard" className={styles.btnSecondary}>
-                  View Dashboard
+                  Show Me The Damage
                 </Link>
               </motion.div>
             </motion.div>
@@ -210,7 +210,7 @@ export default function Home() {
           viewport={{ once: true, margin: "-50px" }}
           variants={revealVariants}
         >
-          <p className={styles.marqueeLabel}>TRUSTED BY ADVANCED ENGINEERING TEAMS</p>
+          <p className={styles.marqueeLabel}>USED BY TEAMS WHO CAN'T WRITE GOOD CODE</p>
           <div className={styles.marqueeMask}>
             <div className={styles.marqueeTrack}>
               {[...Array(3)].map((_, i) => (
@@ -241,8 +241,8 @@ export default function Home() {
         >
           <div className="w-full max-w-[1200px] mx-auto px-6 xl:px-0">
             <motion.div variants={revealVariants} className={styles.sectionHeader}>
-              <h2 className={styles.bentoTitle}>The architecture of perfection.</h2>
-              <p className={styles.bentoSubtitle}>Every tool required to maintain flawless zero-debt infrastructure, built into a single elegant platform.</p>
+              <h2 className={styles.bentoTitle}>Why we're better than you.</h2>
+              <p className={styles.bentoSubtitle}>Because let's face it, you need all the help you can get to write decent code.</p>
             </motion.div>
 
             <div className={styles.bentoGrid}>
@@ -314,14 +314,14 @@ export default function Home() {
         >
           <div className="w-full max-w-[1200px] mx-auto px-6 xl:px-0">
             <div className={styles.ctaCard}>
-              <h2>Deploy better software, faster.</h2>
-              <p>Join the elite development teams permanently eliminating technical debt.</p>
+              <h2>Stop deploying garbage.</h2>
+              <p>Join the teams that finally admitted they need an AI to fix their technical debt.</p>
               <div className={styles.ctaActions}>
                 <Link to="/review" className={styles.btnPrimary}>
-                  Start Code Review
+                  Roast My Code
                 </Link>
                 <Link to="https://github.com" target="_blank" rel="noreferrer" className={styles.btnSecondary}>
-                  View GitHub
+                  Steal Our Code
                 </Link>
               </div>
             </div>

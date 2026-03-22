@@ -21,7 +21,6 @@ export default function Navbar() {
     }, []);
 
     const navLinks = [
-        { id: '/#features', label: 'Features', href: '/#features', icon: <Sparkles size={16} /> },
         { id: '/#pricing', label: 'Pricing', href: '/#pricing', icon: <CreditCard size={16} /> },
         { id: '/#faq', label: 'FAQ', href: '/#faq', icon: <HelpCircle size={16} /> },
         { id: '/review', label: 'Scanner', href: '/review', icon: <ScanLine size={16} /> },
@@ -51,7 +50,7 @@ export default function Navbar() {
                 >
                     <AnimatePresence>
                         {navLinks.map((item) => {
-                            const isActive = currentPath === item.href || (currentPath === '/' && item.href === '/#features'); 
+                            const isActive = currentPath === item.href || (currentPath === '/' && item.href === '/#how-it-works'); 
                             const isHovered = hoveredItem === item.id;
                             const isExpanded = isHovered || isActive;
 

@@ -1,70 +1,87 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { CheckCircle2, ShieldAlert, Cpu, Search, Wrench, Clock } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { CheckCircle2, ShieldAlert, Cpu, Search, Wrench, Clock, XCircle } from 'lucide-react';
 
 const AGENT_CONFIGS = {
-    auditor: { label: 'Code Auditor', icon: Search, color: 'text-cyan-400', border: 'border-cyan-400/40', shadow: 'shadow-[0_0_20px_rgba(6,182,212,0.15)]' },
-    style: { label: 'Style Critic', icon: CheckCircle2, color: 'text-amber-400', border: 'border-amber-400/40', shadow: 'shadow-[0_0_20px_rgba(245,158,11,0.15)]' },
-    security: { label: 'Security Scanner', icon: ShieldAlert, color: 'text-red-400', border: 'border-red-400/40', shadow: 'shadow-[0_0_20px_rgba(248,113,113,0.15)]' },
-    performance: { label: 'Perf Analyst', icon: Cpu, color: 'text-orange-500', border: 'border-orange-500/40', shadow: 'shadow-[0_0_20px_rgba(249,115,22,0.15)]' },
-    refactor: { label: 'Refactor Engine', icon: Wrench, color: 'text-fuchsia-400', border: 'border-fuchsia-400/40', shadow: 'shadow-[0_0_20px_rgba(232,121,249,0.15)]' },
+    auditor: { label: 'Nitpicker', icon: Search, bg: 'bg-[var(--accent-cyan)]' },
+    style: { label: 'Style Snob', icon: CheckCircle2, bg: 'bg-[var(--accent-amber)]' },
+    security: { label: 'Paranoid Scan', icon: ShieldAlert, bg: 'bg-[#ff5f56]' },
+    performance: { label: 'Speed Freak', icon: Cpu, bg: 'bg-[#ffbd2e]' },
+    refactor: { label: 'The Cleaner', icon: Wrench, bg: 'bg-[var(--accent-pink)]' },
 };
 
-export default function AgentStatus({ statuses }) {
-    // statuses is an object like: { auditor: 'running', style: 'completed', security: 'pending', ... }
+function useElapsedTimer(isRunning) {
+    const [elapsed, setElapsed] = useState(0);
+    const intervalRef = useRef(null);
+
+    useEffect(() => {
+        if (isRunning) {
+            setElapsed(0);
+            intervalRef.current = setInterval(() => {
+                setElapsed(prev => prev + 0.1);
+            }, 100);
+        } else {
+            if (intervalRef.current) clearInterval(intervalRef.current);
+        }
+        return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
+    }, [isRunning]);
+
+    return elapsed;
+}
+
+function AgentCard({ agentKey, config, status }) {
+    const Icon = config.icon;
+    const isRunning = status === 'running';
+    const isCompleted = status === 'completed';
+    const isError = status === 'error';
+    const elapsed = useElapsedTimer(isRunning);
 
     return (
-        <div className="glass-panel w-full relative overflow-hidden">
-            {/* Ambient Background Gradient */}
-            <div className="absolute -top-20 -right-20 w-64 h-64 bg-orange-500/5 blur-[80px] rounded-full pointer-events-none" />
+        <div
+            className={`relative flex flex-col items-center p-3 rounded-none border-4 border-black transition-all duration-200 transform ${
+                isRunning
+                    ? `${config.bg} shadow-[4px_4px_0px_#000] scale-105 z-10`
+                    : isCompleted
+                        ? 'bg-zinc-200 shadow-[2px_2px_0px_#000] opacity-80'
+                        : isError
+                            ? 'bg-[#ff5f56] shadow-[2px_2px_0px_#000] opacity-90'
+                            : 'bg-white shadow-[2px_2px_0px_#000] opacity-50'
+            }`}
+        >
+            <div className={`mb-2 p-3 bg-white border-2 border-black rounded-full shadow-[2px_2px_0px_#000] ${isRunning ? 'text-black animate-bounce' : isError ? 'text-[#ff5f56]' : 'text-zinc-500'}`}>
+                {isError ? <XCircle className="w-6 h-6" /> : <Icon className="w-6 h-6" />}
+            </div>
 
-            <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10 relative z-10">
-                <h3 className="font-semibold text-white tracking-widest text-sm uppercase">Agent Orchestrator</h3>
-                <div className="flex items-center gap-2 font-mono text-xs text-orange-500/80 bg-orange-500/10 px-3 py-1 rounded-full border border-orange-500/20">
-                    <Clock className="w-3 h-3 animate-pulse" />
-                    <span>ASYNC_GATHER</span>
+            <span className="text-xs font-black tracking-wide text-center text-black mb-1 uppercase leading-tight">{config.label}</span>
+
+            <span className="font-mono text-[10px] font-black uppercase tracking-widest text-black bg-white px-1 border border-black mt-1">
+                {isRunning ? 'WORKING' : isCompleted ? 'DONE' : isError ? 'FAILED' : 'WAITING'}
+            </span>
+
+            {/* Timer */}
+            {(isRunning || isCompleted) && (
+                <span className="font-mono text-[9px] font-bold text-black/60 mt-1">
+                    {elapsed.toFixed(1)}s
+                </span>
+            )}
+        </div>
+    );
+}
+
+export default function AgentStatus({ statuses }) {
+    return (
+        <div className="bg-white border-4 border-black shadow-[6px_6px_0px_#000] w-full relative overflow-hidden p-6 hover:-translate-y-1 hover:shadow-[8px_8px_0px_#000] transition-all duration-200">
+            <div className="flex items-center justify-between mb-6 pb-4 border-b-4 border-black relative z-10">
+                <h3 className="font-black text-black tracking-widest text-lg uppercase bg-[var(--accent-amber)] px-3 py-1 border-2 border-black inline-block shadow-[2px_2px_0px_#000] -rotate-1">Bot Overlords</h3>
+                <div className="flex items-center gap-2 font-mono text-xs text-black font-black uppercase bg-[var(--accent-pink)] px-3 py-1 border-2 border-black shadow-[2px_2px_0px_#000]">
+                    <Clock className="w-4 h-4 animate-spin" />
+                    <span>JUDGING YOU</span>
                 </div>
             </div>
 
             <div className="grid grid-cols-5 gap-4 relative z-10">
-                {Object.entries(AGENT_CONFIGS).map(([key, config]) => {
-                    const status = statuses[key] || 'pending';
-                    const Icon = config.icon;
-
-                    const isRunning = status === 'running';
-                    const isCompleted = status === 'completed';
-
-                    return (
-                        <div
-                            key={key}
-                            className={`relative flex flex-col items-center p-4 rounded-xl border backdrop-blur-md transition-all duration-500 transform ${isRunning
-                                    ? `bg-white/5 ${config.border} ${config.shadow} scale-[1.02]`
-                                    : isCompleted
-                                        ? 'bg-black/60 border-orange-500/30 opacity-90'
-                                        : 'bg-black/40 border-white/5 opacity-50'
-                                }`}
-                        >
-                            {isRunning && (
-                                <motion.div
-                                    className="absolute inset-0 rounded-xl"
-                                    animate={{ boxShadow: ['inset 0 0 0px 0px rgba(255,255,255,0)', `inset 0 0 15px 1px rgba(255,255,255,0.1)`, 'inset 0 0 0px 0px rgba(255,255,255,0)'] }}
-                                    transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-                                />
-                            )}
-
-                            <div className={`mb-3 p-3 rounded-full bg-black/60 border border-white/10 ${isRunning ? config.color : isCompleted ? 'text-orange-500 drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]' : 'text-zinc-600'}`}>
-                                <Icon className="w-5 h-5" />
-                            </div>
-
-                            <span className="text-xs font-bold tracking-wide text-center text-zinc-200 mb-1">{config.label}</span>
-
-                            <span className={`font-mono text-[10px] font-bold uppercase tracking-widest ${isRunning ? config.color : isCompleted ? 'text-orange-500/80' : 'text-zinc-600'
-                                }`}>
-                                [{status}]
-                            </span>
-                        </div>
-                    );
-                })}
+                {Object.entries(AGENT_CONFIGS).map(([key, config]) => (
+                    <AgentCard key={key} agentKey={key} config={config} status={statuses[key] || 'pending'} />
+                ))}
             </div>
         </div>
     );
